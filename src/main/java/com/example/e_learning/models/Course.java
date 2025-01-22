@@ -1,10 +1,18 @@
 package com.example.e_learning.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +28,7 @@ public class Course {
 
 
 
-    public Long getId() {
+  /*  public Long getId() {
         return id;
     }
 
@@ -81,7 +89,7 @@ public class Course {
         this.published = published;
         this.level = level;
     }
-
+*/
     public enum Courselevel {
                 BEGINNER, INTERMEDIATE, ADVANCED
     }

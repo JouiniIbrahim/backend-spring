@@ -7,6 +7,7 @@ import com.example.e_learning.services.Imp.CourseSerImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ private CourseSerImp courseSerImp;
     private CourseRepo courseRepo;
 
 @PostMapping("/AddCourse")
-public Course addCourse( Course course)
+public Course addCourse( @RequestBody Course course)
 {
  return courseSerImp.AddCourse(course);
 }
@@ -33,10 +34,28 @@ public Course addCourse( Course course)
 }
 
 @GetMapping("/OneCourse/{id}")
- public Course GetOneCourse(@PathVariable  Long id)
+ public Course GetOneCourse(@PathVariable Long id)
  {
      return courseSerImp.GetCourseById(id);
  }
 
+ @DeleteMapping("/DeleteCourse/{id}")
+ public void deleteCourse(@PathVariable Long id) {  courseSerImp.DeleteCourse(id); }
+
+    @PutMapping("/UpdateCourse")
+    public Course UpdateCourse (@RequestBody Course course)
+    {
+        Course c = courseRepo.findById(course.getId()).orElseThrow();
+
+        c.setName(course.getName());
+        c.setDescription(course.getDescription());
+        c.setPublished(LocalDateTime.now());
+        c.setLevel(course.getLevel());
+
+        return courseRepo.save(c);
 
     }
+
+
+
+}

@@ -38,7 +38,7 @@ public class CourseSerImp implements CourseService {
 
     @Override
     public Course GetCourseById(Long id) {
-        return courseRepo.findById(id).get();
+        return courseRepo.findById(id).orElseThrow();
     }
 
 
