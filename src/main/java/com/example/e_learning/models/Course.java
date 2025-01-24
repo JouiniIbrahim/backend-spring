@@ -26,6 +26,12 @@ public class Course {
     @Enumerated(EnumType.STRING)
     public Courselevel level;
 
+    public enum Courselevel {
+        BEGINNER, INTERMEDIATE, ADVANCED
+    }
+
+}
+
 
 
   /*  public Long getId() {
@@ -90,8 +96,4 @@ public class Course {
         this.level = level;
     }
 */
-    public enum Courselevel {
-                BEGINNER, INTERMEDIATE, ADVANCED
-    }
 
-}
