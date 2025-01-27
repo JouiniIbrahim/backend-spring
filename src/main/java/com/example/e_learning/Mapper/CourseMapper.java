@@ -29,7 +29,6 @@ public class CourseMapper {
         course.setName(courseDto.getName());
         course.setDescription(courseDto.getDescription());
         course.setCategory(courseDto.getCategory());
-
         course.setLevel(courseDto.getLevel());
         return course;
     }

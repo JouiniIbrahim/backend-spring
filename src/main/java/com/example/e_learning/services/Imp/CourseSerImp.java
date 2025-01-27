@@ -72,7 +72,8 @@ public class CourseSerImp implements CourseService {
     public List<CourseResponseDto> getAllCourses() {
 
 
-        return courseRepo.findAll().stream().map(CourseMapper::ToDto).collect(Collectors.toList());
+        return courseRepo.findAll().stream().map(CourseMapper::ToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

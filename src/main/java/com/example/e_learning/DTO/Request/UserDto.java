@@ -3,11 +3,17 @@ package com.example.e_learning.DTO.Request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
 
     private Long id;
@@ -23,6 +29,8 @@ public class UserDto {
     @NotBlank(message = "Email is required")
     @Email
     private String email;
+
+    private List<RoleDto> roles;
 
 
 }
