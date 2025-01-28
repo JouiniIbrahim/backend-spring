@@ -29,7 +29,6 @@ public class UserDto {
     @NotBlank(message = "Email is required")
     @Email
     private String email;
-
     private List<Long> roleIds;
 
 

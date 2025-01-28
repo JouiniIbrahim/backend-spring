@@ -31,7 +31,10 @@ public class UserSerImp  implements UserService {
     public UserResponseDto AddUser(UserDto userDto) {
 
         // Save the usetr
+       userDto.setRoleIds((roleRepo.findAll().stream().map(Role::getId).collect(Collectors.toList())));
         User user=ToEntity(userDto);
+        user.setRoles();
+
 
         User savedUser = userRepo.save(user);
 
