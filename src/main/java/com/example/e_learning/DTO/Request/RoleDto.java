@@ -15,5 +15,4 @@ public class RoleDto {
     private Long id;
     private String name;
     private List<UserDto> users;
-
 }
