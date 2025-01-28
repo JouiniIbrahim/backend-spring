@@ -16,13 +16,9 @@ public class UserMapper {
         responseDto.setFirstname(user.getFirstname());
         responseDto.setLastname(user.getLastname());
         responseDto.setEmail(user.getEmail());
-        if (user.getRoles() != null) {
-            List<Long> roleIds = user.getRoles()
-                    .stream()
-                    .map(Role::getId)
-                    .collect(Collectors.toList());
-            responseDto.setRoleIds(roleIds);
-        }
+        responseDto.setRoleIds(user.getRoles().stream()
+                .map(Role::getId)
+                .collect(Collectors.toList()));
         return responseDto;
     }
 
@@ -37,4 +33,6 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
         return user;
 
-    }}
+    }
+
+}

@@ -15,15 +15,9 @@ public class RoleMapper {
         RoleDto responseDto = new RoleDto();
         responseDto.setId(role.getId());
         responseDto.setName(role.getName());
-        if (role.getUsers() != null) {
-            List<Long> users = role.getUsers()
-                    .stream()
-                    .map(User::getId)
-                    .collect(Collectors.toList());
-
-            responseDto.setUsers(users);
-
-        }
+        responseDto.setUserIds(role.getUsers().stream()
+                .map(User::getId)
+                .collect(Collectors.toList()));
         return responseDto;
     }
 
@@ -31,7 +25,6 @@ public class RoleMapper {
         Role role = new Role();
         role.setId(roleDto.getId());
         role.setName(roleDto.getName());
-
         return role;
     }
 }

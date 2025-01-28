@@ -30,7 +30,7 @@ public class UserDto {
     @Email
     private String email;
 
-    private List<RoleDto> roles;
+    private List<Long> roleIds;
 
 
 }
