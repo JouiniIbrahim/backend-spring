@@ -1,7 +1,16 @@
 package com.example.e_learning.services;
 
 import com.example.e_learning.DTO.Request.RoleDto;
+import com.example.e_learning.DTO.Response.RoleResponseDto;
+
+import java.util.List;
 
 public interface RoleService {
-public RoleDto addRole(RoleDto role);
+    RoleResponseDto AddRole(RoleDto roleDto);
+    RoleResponseDto UpdateRole(RoleDto updateRoleDto);
+    void DeleteRole(Long id);
+    List<RoleResponseDto> GetAllRoles();
+    RoleResponseDto GetRoleById(Long id);
+
+
 }

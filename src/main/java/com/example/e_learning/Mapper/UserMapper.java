@@ -5,10 +5,12 @@ import com.example.e_learning.DTO.Response.UserResponseDto;
 import com.example.e_learning.models.Role;
 import com.example.e_learning.models.User;
 
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 public class UserMapper {
+
+
 
     public static UserResponseDto ToDto(User user) {
         UserResponseDto responseDto = new UserResponseDto();
