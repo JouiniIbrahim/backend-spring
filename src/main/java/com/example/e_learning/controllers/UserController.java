@@ -43,6 +43,10 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+    @PutMapping("/UpdateUser")
+    public UserResponseDto updateUser(@RequestBody UserDto userDto) {
+        return userSerImp.UpdateUser(userDto);
+    }
 
 
     @GetMapping("/AllUsers")

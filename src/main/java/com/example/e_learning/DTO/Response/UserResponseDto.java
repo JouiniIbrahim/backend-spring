@@ -19,7 +19,7 @@ public class UserResponseDto {
     private String lastname;
     private String email;
 
-    private List<Long> roleIds;
+    private List<RoleResponseDto> roles;
 
 
 }
