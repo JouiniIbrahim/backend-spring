@@ -13,6 +13,7 @@ import com.example.e_learning.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,18 +26,22 @@ import static com.example.e_learning.Mapper.UserMapper.ToEntity;
 @Service
 public class UserSerImp  implements UserService {
 
-
+    @Autowired
+    PasswordEncoder encoder;
     @Autowired
     UserRepo userRepo;
     @Autowired
     RoleRepo roleRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponseDto AddUser(UserDto userDto) {
 
         // Save the usetr
         List<Role> roles = roleRepo.findAllById(userDto.getRoleIds());
-
+        String encodedPassword = encoder.encode(userDto.getPassword());
+        userDto.setPassword(encodedPassword);
         User user=ToEntity(userDto);
 
         user.setRoles(roles);
@@ -75,14 +80,16 @@ public class UserSerImp  implements UserService {
         List<Role> roles = roleRepo.findAllById(updateUserDto.getRoleIds());
         exsitingUser.setRoles(roles);
         userRepo.save(exsitingUser);
-
         return ToDto(exsitingUser);
     }
 
     @Override
-    public void DeleteUser(Long id)
+    public ResponseEntity<String> DeleteUser(Long id)
     {
-        userRepo.deleteById(id);
+        if(userRepo.existsById(id)) {
+            userRepo.deleteById(id);
+            return  ResponseEntity.ok("User Deleted");
+        }else return  ResponseEntity.ok("User Not Found");
     }
 
     @Override

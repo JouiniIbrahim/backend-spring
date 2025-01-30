@@ -55,6 +55,18 @@ public class UserController {
     }
 
 
+    @DeleteMapping("/DeleteUser")
+    public ResponseEntity<String> deleteUser(@RequestBody UserDto userDto) {
+        return userSerImp.DeleteUser(userDto.getId());
+    }
+
+    @GetMapping("/OneUser/{id}")
+    public UserResponseDto getOneUser(@PathVariable  Long id) {
+
+        return userSerImp.GetUserById(id);
+    }
+
+
 
 
 

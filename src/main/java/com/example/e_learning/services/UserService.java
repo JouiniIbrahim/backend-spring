@@ -13,7 +13,7 @@ public interface UserService {
     public List<UserResponseDto> GetAllUsers();
     public UserResponseDto GetUserById(Long id);
     public UserResponseDto UpdateUser(UserDto userDto);
-    public void DeleteUser(Long id);
+    public ResponseEntity<String> DeleteUser(Long id);
     public ResponseEntity<String> addRoleToUser(UserRoleDto userRoleDto);
 
 }
