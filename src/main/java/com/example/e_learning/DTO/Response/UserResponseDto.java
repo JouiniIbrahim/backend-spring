@@ -18,8 +18,10 @@ public class UserResponseDto {
     private String firstname;
     private String lastname;
     private String email;
+    private String username;
+    private String password;
 
-    private List<RoleResponseDto> roles;
+        private List<RoleResponseDto> roles;
 
 
 }

@@ -20,6 +20,8 @@ public class UserMapper {
         responseDto.setFirstname(user.getFirstname());
         responseDto.setLastname(user.getLastname());
         responseDto.setEmail(user.getEmail());
+        responseDto.setUsername(user.getUsername());
+        responseDto.setPassword(user.getPassword());
         List<RoleResponseDto> roleResponseDtos = user.getRoles().stream()
                 .map(role -> new RoleResponseDto(role.getId(), role.getName(), role.getUsers().stream()
                         .map(User::getId)

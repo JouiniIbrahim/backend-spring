@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,7 @@ public class UserSerImp  implements UserService {
     public UserResponseDto AddUser(UserDto userDto) {
 
         // Save the usetr
-        List<Role> roles = roleRepo.findAllById(userDto.getRoleIds());
+        List<Role> roles = roleRepo.findAllById(userDto.getRoles());
         String encodedPassword = encoder.encode(userDto.getPassword());
         userDto.setPassword(encodedPassword);
         User user=ToEntity(userDto);
@@ -71,16 +72,31 @@ public class UserSerImp  implements UserService {
 
     }
     @Override
-    public UserResponseDto UpdateUser(UserDto updateUserDto)
-    {
-        User exsitingUser=userRepo.findById(updateUserDto.getId())
-                .orElseThrow(()-> new RuntimeException("User Not Found"));
+    public UserResponseDto UpdateUser(UserDto updateUserDto) {
+        // Find the existing user aor throw an exception if not found
+        User existingUser = userRepo.findById(updateUserDto.getId())
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
 
-        exsitingUser=ToEntity(updateUserDto);
-        List<Role> roles = roleRepo.findAllById(updateUserDto.getRoleIds());
-        exsitingUser.setRoles(roles);
-        userRepo.save(exsitingUser);
-        return ToDto(exsitingUser);
+        // Update the user's basic information
+        existingUser = ToEntity(updateUserDto);
+
+        // Check if roleIds is null and handle it
+        List<Long> roleIds = updateUserDto.getRoles();
+        if (roleIds == null) {
+            roleIds = Collections.emptyList(); // or throw an exception
+        }
+
+        // Fetch roles from the database based on role IDs
+        List<Role> roles = roleRepo.findAllById(roleIds);
+
+        // Set the roles for the user
+        existingUser.setRoles(roles);
+
+        // Save the updated user
+        userRepo.save(existingUser);
+
+        // Return the updated user as a DTO
+        return ToDto(existingUser);
     }
 
     @Override

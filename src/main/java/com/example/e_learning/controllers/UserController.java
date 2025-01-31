@@ -7,6 +7,7 @@ import com.example.e_learning.DTO.Response.UserResponseDto;
 import com.example.e_learning.services.Imp.UserSerImp;
 import com.example.e_learning.services.UserService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@Slf4j
 @RestController
 @RequestMapping("/User")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,7 +29,7 @@ public class UserController {
 
 
     @PostMapping("/AddUser")
-    public UserResponseDto addUser(@Valid @RequestBody UserDto userDto)
+    public UserResponseDto addUser(@RequestBody UserDto userDto)
     {
         return userSerImp.AddUser(userDto);
     }
@@ -44,8 +47,15 @@ public class UserController {
         }
     }
     @PutMapping("/UpdateUser")
-    public UserResponseDto updateUser(@RequestBody UserDto userDto) {
-        return userSerImp.UpdateUser(userDto);
+    public ResponseEntity<UserResponseDto> updateUser(@RequestBody UserDto updateUserDto) {
+        if (updateUserDto == null || updateUserDto.getId() == null) {
+            throw new IllegalArgumentException("UserDto or ID must not be null");
+        }
+
+        UserResponseDto updatedUser = userService.UpdateUser(updateUserDto);
+
+        log.info("test ----*-*-****----***--");
+        return ResponseEntity.ok(updatedUser);
     }
 
 
@@ -61,7 +71,7 @@ public class UserController {
     }
 
     @GetMapping("/OneUser/{id}")
-    public UserResponseDto getOneUser(@PathVariable  Long id) {
+    public UserResponseDto getOneUser(@PathVariable Long id) {
 
         return userSerImp.GetUserById(id);
     }
