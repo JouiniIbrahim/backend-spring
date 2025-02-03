@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,19 +39,35 @@ public class UserSerImp  implements UserService {
 
     @Override
     public UserResponseDto AddUser(UserDto userDto) {
+        // Fetch the "USER" role from the database
+        Role userRole = roleRepo.findByName("USER")
+                .orElseThrow(() -> new RuntimeException("Role 'USER' not found in the database."));
 
-        // Save the usetr
-        List<Role> roles = roleRepo.findAllById(userDto.getRoles());
+        // Encode the user's password
         String encodedPassword = encoder.encode(userDto.getPassword());
         userDto.setPassword(encodedPassword);
-        User user=ToEntity(userDto);
 
+        // Convert UserDto to User entity
+        User user = ToEntity(userDto);
+
+        // Get the roles from the DTO (if any)
+        List<Role> roles = new ArrayList<>();
+        if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
+            roles = roleRepo.findAllById(userDto.getRoles());
+        }
+
+        // Add the "USER" role if it's not already included
+        if (roles.stream().noneMatch(role -> role.getName().equals("USER"))) {
+            roles.add(userRole);
+        }
+
+        // Set the roles for the user
         user.setRoles(roles);
 
-
+        // Save the user
         User savedUser = userRepo.save(user);
 
-        // Map User entity to User responseDto
+        // Map User entity to UserResponseDto and return
         return ToDto(savedUser);
     }
 
@@ -72,7 +89,7 @@ public class UserSerImp  implements UserService {
 
     }
     @Override
-    public UserResponseDto UpdateUser(UserDto updateUserDto) {
+    public UserResponseDto UpdateUser(Long id,UserDto updateUserDto) {
         // Find the existing user aor throw an exception if not found
         User existingUser = userRepo.findById(updateUserDto.getId())
                 .orElseThrow(() -> new RuntimeException("User Not Found"));

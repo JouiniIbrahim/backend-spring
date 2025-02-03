@@ -46,15 +46,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-    @PutMapping("/UpdateUser")
-    public ResponseEntity<UserResponseDto> updateUser(@RequestBody UserDto updateUserDto) {
-        if (updateUserDto == null || updateUserDto.getId() == null) {
+    @PutMapping("/UpdateUser/{id}")
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        if (id == null || userDto == null) {
             throw new IllegalArgumentException("UserDto or ID must not be null");
         }
 
-        UserResponseDto updatedUser = userService.UpdateUser(updateUserDto);
-
-        log.info("test ----*-*-****----***--");
+        UserResponseDto updatedUser = userService.UpdateUser(id, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 
