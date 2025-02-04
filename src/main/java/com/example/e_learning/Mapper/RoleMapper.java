@@ -24,7 +24,7 @@ public class RoleMapper {
     public static RoleResponseDto ToDtoDisplay(Role role) {
         RoleResponseDto responseDto = new RoleResponseDto();
         responseDto.setId(role.getId());
-        responseDto.setName(("ROLE_")+role.getName());
+        responseDto.setName(role.getName());
         responseDto.setUserIds(role.getUsers().stream()
                 .map(User::getId)
                 .collect(Collectors.toList()));
@@ -35,7 +35,7 @@ public class RoleMapper {
     public static Role ToEntity(RoleDto roleDto) {
         Role role = new Role();
         role.setId(roleDto.getId());
-        role.setName(roleDto.getName());
+        role.setName(("ROLE_")+roleDto.getName());
 
         return role;
     }

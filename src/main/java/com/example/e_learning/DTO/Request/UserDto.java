@@ -33,4 +33,7 @@ public class UserDto {
     private List<Long> roles ;
 
 
+    public UserDto(@NotBlank String username, @NotBlank @Email String email, String encode, String role) {
+
+    }
 }

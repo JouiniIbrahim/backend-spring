@@ -40,34 +40,31 @@ public class UserSerImp  implements UserService {
     @Override
     public UserResponseDto AddUser(UserDto userDto) {
         // Fetch the "USER" role from the database
-        Role userRole = roleRepo.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Role 'USER' not found in the database."));
+//        Role userRole = roleRepo.findByName("USER")
+//                .orElseThrow(() -> new RuntimeException("Role 'USER' not found in the database."));
 
-        // Encode the user's password
+
         String encodedPassword = encoder.encode(userDto.getPassword());
         userDto.setPassword(encodedPassword);
 
-        // Convert UserDto to User entity
+
         User user = ToEntity(userDto);
 
-        // Get the roles from the DTO (if any)
+
         List<Role> roles = new ArrayList<>();
         if (userDto.getRoles() != null && !userDto.getRoles().isEmpty()) {
             roles = roleRepo.findAllById(userDto.getRoles());
         }
 
         // Add the "USER" role if it's not already included
-        if (roles.stream().noneMatch(role -> role.getName().equals("USER"))) {
-            roles.add(userRole);
-        }
+//        if (roles.stream().noneMatch(role -> role.getName().equals("USER"))) {
+//            roles.add(userRole);
+//        }
 
-        // Set the roles for the user
         user.setRoles(roles);
 
-        // Save the user
         User savedUser = userRepo.save(user);
 
-        // Map User entity to UserResponseDto and return
         return ToDto(savedUser);
     }
 

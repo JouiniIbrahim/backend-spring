@@ -9,6 +9,7 @@ import com.example.e_learning.repositories.RoleRepo;
 import com.example.e_learning.repositories.UserRepo;
 import com.example.e_learning.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,12 +32,18 @@ public class RoleSerImp implements RoleService {
 
 //        List<User> users = userRepo.findAllById(roleDto.getUserIds());
 
+        boolean roleExists = GetAllRoles().stream()
+                .anyMatch(role ->( role.getName()).equals(roleDto.getName()));
 
-        Role role = ToEntity(roleDto);
+        if (!roleExists) {
+
+            Role role = ToEntity(roleDto);
 //      role.setUsers(users);
-        // Save the role
-        Role savedRole = roleRepo.save(role);
-        return ToDto(savedRole);
+            // Save the role
+            Role savedRole = roleRepo.save(role);
+            return   ToDto(savedRole);
+        }
+return null;
     }
 
     @Override
