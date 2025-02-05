@@ -19,7 +19,8 @@ public class UserResponseDto {
     private String lastname;
     private String email;
     private String username;
-    private String password;
+    private String password,activation_key;
+    private boolean activated=false;
 
         private List<RoleResponseDto> roles;
 

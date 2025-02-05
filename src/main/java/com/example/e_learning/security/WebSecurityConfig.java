@@ -23,6 +23,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 //@EnableWebSecurity
@@ -66,6 +69,34 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //	public AuthenticationManager authenticationManagerBean() throws Exception {
 //		return super.authenticationManagerBean();
 //	}
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	http.cors().and().csrf().disable()
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.authorizeRequests()
+			.requestMatchers("/**").permitAll()  // Adjust these matchers as per your requirement
+			.anyRequest().authenticated();
+
+	http.authenticationProvider(authenticationProvider());
+	http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+	return http.build();
+}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.addAllowedOrigin("http://localhost:4200"); // Angular front-end URL
+		config.addAllowedHeader("*");  // Allow all headers
+		config.addAllowedMethod("*");  // Allow all methods (GET, POST, etc.)
+		config.setAllowCredentials(true);  // Allow credentials (cookies)
+
+		// Register the configuration
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);  // Apply to all endpoints
+		return source;
+	}
 
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -97,7 +128,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //
 //				.authorizeRequests()
 //
-//				.requestMatchers("/Admin/**").permitAll()
+//				.requestMatchers("/**").permitAll()
 //				.requestMatchers("/Candidat/**").permitAll()
 //				.requestMatchers("/Category/**").permitAll()
 //				.requestMatchers("/Interview/**").permitAll()
@@ -106,10 +137,10 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //				.requestMatchers("/Auth/**").permitAll()
 //				.requestMatchers("/User/**").permitAll()
 //				.requestMatchers("/payment/**").permitAll()
-//
-//
-//
-//
+
+
+
+
 //				.anyRequest().authenticated();
 //
 //		http.authenticationProvider(authenticationProvider());

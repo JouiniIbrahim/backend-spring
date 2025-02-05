@@ -22,6 +22,8 @@ public class UserMapper {
         responseDto.setEmail(user.getEmail());
         responseDto.setUsername(user.getUsername());
         responseDto.setPassword(user.getPassword());
+        responseDto.setActivated(false);
+        responseDto.setActivation_key(user.getActivation_key());
         List<RoleResponseDto> roleResponseDtos = user.getRoles().stream()
                 .map(role -> new RoleResponseDto(role.getId(), role.getName(), role.getUsers().stream()
                         .map(User::getId)
@@ -41,6 +43,8 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
         user.setUsername(userDto.getUsername());
+        user.setActivation_key(userDto.getActivation_key());
+        user.setActivated(false);
         return user;
 
     }

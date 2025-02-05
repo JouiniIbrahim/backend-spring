@@ -29,7 +29,9 @@ public class UserDto {
     private String password;
     @NotBlank(message = "Email is required")
     @Email
-    private String email;
+    private String email,activation_key;
+
+    private boolean activated=false;
     private List<Long> roles ;
 
 

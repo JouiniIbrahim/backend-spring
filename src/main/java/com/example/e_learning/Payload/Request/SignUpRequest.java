@@ -12,7 +12,7 @@ public class SignUpRequest {
 
    @NotBlank
     private String password;
-            private String  role;
+    private String  role;
     private Boolean activated=false;
     private String isAccepted="waiting";
 

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.example.e_learning.Mapper.UserMapper.ToDto;
@@ -47,8 +48,11 @@ public class UserSerImp  implements UserService {
         String encodedPassword = encoder.encode(userDto.getPassword());
         userDto.setPassword(encodedPassword);
 
-
+        String act_key = UUID.randomUUID().toString();
+        userDto.setActivation_key(act_key);
         User user = ToEntity(userDto);
+
+
 
 
         List<Role> roles = new ArrayList<>();
