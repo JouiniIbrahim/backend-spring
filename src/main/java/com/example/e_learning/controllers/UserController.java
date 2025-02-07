@@ -63,10 +63,11 @@ public class UserController {
 
             response.put("message", "Account is activated");
             return ResponseEntity.ok(response);
-        }
+        }else {
 
         response.put("message", "Account is not activated");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.notFound().build();
+    }
     }
 
 

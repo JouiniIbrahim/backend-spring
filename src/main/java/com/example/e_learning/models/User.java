@@ -37,7 +37,6 @@ public class User {
         }
     }
 
-
     public User(@NotBlank String username, @NotBlank @Email String email, String encode, String role) {
 
     }

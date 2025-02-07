@@ -7,20 +7,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Produit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name ;
 
-    @ManyToMany(mappedBy = "roles",  fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-    private List<User> users ;
+    private String nom;
+    private String description;
+    private Long prix;
+    private Long tva;
+
+    @ManyToOne
+    @JoinColumn(name = "categorie_id", nullable = false)
+    private Categorie categorie;
 }
