@@ -3,7 +3,7 @@ package com.example.e_learning.security.services;
 
 //import com.securityEcommerce.exception.TokenRefreshException;
 
-import com.example.e_learning.models.RefrechToken;
+import com.example.e_learning.domain.RefrechToken;
 import com.example.e_learning.repositories.RefrechTokenRepo;
 import com.example.e_learning.repositories.UserRepo;
 

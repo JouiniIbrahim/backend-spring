@@ -1,7 +1,7 @@
 package com.example.e_learning.repositories;
 
 
-import com.example.e_learning.models.Categorie;
+import com.example.e_learning.domain.Categorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

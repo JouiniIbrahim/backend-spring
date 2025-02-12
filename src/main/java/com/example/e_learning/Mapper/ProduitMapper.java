@@ -1,17 +1,9 @@
 package com.example.e_learning.Mapper;
 
 import com.example.e_learning.DTO.Request.ProduitDto;
-import com.example.e_learning.DTO.Request.UserDto;
 import com.example.e_learning.DTO.Response.CategorieResponseDto;
 import com.example.e_learning.DTO.Response.ProduitResponseDto;
-import com.example.e_learning.DTO.Response.RoleResponseDto;
-import com.example.e_learning.DTO.Response.UserResponseDto;
-import com.example.e_learning.models.Produit;
-import com.example.e_learning.models.User;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.example.e_learning.domain.Produit;
 
 
 public class ProduitMapper {
@@ -23,6 +15,7 @@ public class ProduitMapper {
         responseDto.setDescription(produit.getDescription());
         responseDto.setPrix(produit.getPrix());
         responseDto.setTva(produit.getTva());
+        responseDto.setPrixTTC(produit.getPrixTTC());
     //    responseDto.setCategorieId(produit.getCategorie().getId());
         CategorieResponseDto categorieDto = new CategorieResponseDto();
         categorieDto.setId(produit.getCategorie().getId());
@@ -32,7 +25,6 @@ public class ProduitMapper {
 
         return responseDto;
     }
-
     public static Produit ToEntity(ProduitDto produitDto)
     {
         Produit produit = new Produit();
@@ -41,6 +33,7 @@ public class ProduitMapper {
         produit.setDescription(produitDto.getDescription());
         produit.setPrix(produitDto.getPrix());
         produit.setTva(produitDto.getTva());
+        produit.setPrixTTC(produitDto.getPrixTTC());
         produit.setCategorie(produitDto.getCategorie());
 
         return produit;

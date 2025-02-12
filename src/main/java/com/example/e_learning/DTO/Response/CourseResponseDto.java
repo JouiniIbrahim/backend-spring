@@ -1,7 +1,7 @@
 package com.example.e_learning.DTO.Response;
 
 
-import com.example.e_learning.models.Course;
+import com.example.e_learning.domain.Course;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +20,5 @@ public class CourseResponseDto {
     private String category;
     private LocalDateTime published;
     private Course.Courselevel level;
+    private String support;
 }

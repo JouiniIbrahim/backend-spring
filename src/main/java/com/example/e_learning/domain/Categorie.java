@@ -1,7 +1,10 @@
-package com.example.e_learning.models;
+package com.example.e_learning.domain;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,18 +15,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produit {
-
+public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nom;
-    private String description;
-    private Long prix;
-    private Long tva;
 
-    @ManyToOne
-    @JoinColumn(name = "categorie_id", nullable = false)
-    private Categorie categorie;
+
 }

@@ -1,7 +1,7 @@
 package com.example.e_learning.repositories;
 
-import com.example.e_learning.models.RefrechToken;
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.RefrechToken;
+import com.example.e_learning.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

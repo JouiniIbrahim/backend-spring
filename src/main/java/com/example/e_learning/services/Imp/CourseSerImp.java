@@ -3,7 +3,7 @@ package com.example.e_learning.services.Imp;
 import com.example.e_learning.DTO.Request.CourseDto;
 import com.example.e_learning.DTO.Response.CourseResponseDto;
 import com.example.e_learning.Mapper.CourseMapper;
-import com.example.e_learning.models.Course;
+import com.example.e_learning.domain.Course;
 import com.example.e_learning.repositories.CourseRepo;
 import com.example.e_learning.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.e_learning.Mapper.CourseMapper.*;
@@ -23,6 +24,10 @@ public class CourseSerImp implements CourseService {
     @Autowired
     CourseRepo courseRepo;
 
+    public Course getFileCourseById(Long id) {
+        Optional<Course> file = courseRepo.findById(id);
+        return file.orElse(null);  // Return null if the file is not found
+    }
 
     @Override
     public CourseResponseDto AddCourse(CourseDto courseDto) {

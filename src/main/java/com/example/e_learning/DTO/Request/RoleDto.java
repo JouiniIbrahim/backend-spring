@@ -2,8 +2,6 @@ package com.example.e_learning.DTO.Request;
 
 
 
-import com.example.e_learning.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 

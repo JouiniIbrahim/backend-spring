@@ -5,8 +5,8 @@ import com.example.e_learning.DTO.Request.UserRoleDto;
 import com.example.e_learning.DTO.Response.UserResponseDto;
 import com.example.e_learning.Mapper.UserMapper;
 
-import com.example.e_learning.models.Role;
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.Role;
+import com.example.e_learning.domain.User;
 import com.example.e_learning.repositories.RoleRepo;
 import com.example.e_learning.repositories.UserRepo;
 import com.example.e_learning.services.UserService;

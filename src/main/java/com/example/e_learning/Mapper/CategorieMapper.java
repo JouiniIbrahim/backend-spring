@@ -1,11 +1,8 @@
 package com.example.e_learning.Mapper;
 
 import com.example.e_learning.DTO.Request.CategorieDto;
-import com.example.e_learning.DTO.Request.RoleDto;
 import com.example.e_learning.DTO.Response.CategorieResponseDto;
-import com.example.e_learning.DTO.Response.RoleResponseDto;
-import com.example.e_learning.models.Categorie;
-import com.example.e_learning.models.Role;
+import com.example.e_learning.domain.Categorie;
 
 public class CategorieMapper {
 

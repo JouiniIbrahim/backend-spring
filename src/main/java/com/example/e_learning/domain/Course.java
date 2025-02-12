@@ -1,4 +1,4 @@
-package com.example.e_learning.models;
+package com.example.e_learning.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +21,7 @@ public class Course {
     private String description;
     private String category;
     private LocalDateTime  published;
+    private String support;
 
 
     @Enumerated(EnumType.STRING)

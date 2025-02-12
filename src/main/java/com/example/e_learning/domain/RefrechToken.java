@@ -1,4 +1,4 @@
-package com.example.e_learning.models;
+package com.example.e_learning.domain;
 
 import jakarta.persistence.*;
 

@@ -1,7 +1,7 @@
 package com.example.e_learning.DTO.Request;
 
 
-import com.example.e_learning.models.Course;
+import com.example.e_learning.domain.Course;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -27,6 +27,8 @@ public class CourseDto {
     @NotNull(message = "Level is required")
     private Course.Courselevel level;
      private LocalDateTime published;
+
+    private String support;
 
 
 }

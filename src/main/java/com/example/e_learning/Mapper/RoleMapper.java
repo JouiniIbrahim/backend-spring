@@ -3,8 +3,8 @@ package com.example.e_learning.Mapper;
 import com.example.e_learning.DTO.Request.RoleDto;
 
 import com.example.e_learning.DTO.Response.RoleResponseDto;
-import com.example.e_learning.models.Role;
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.Role;
+import com.example.e_learning.domain.User;
 
 
 import java.util.stream.Collectors;

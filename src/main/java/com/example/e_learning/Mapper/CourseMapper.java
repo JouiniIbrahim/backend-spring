@@ -2,9 +2,9 @@ package com.example.e_learning.Mapper;
 
 import com.example.e_learning.DTO.Request.CourseDto;
 import com.example.e_learning.DTO.Response.CourseResponseDto;
-import com.example.e_learning.models.Course;
-
-
+import com.example.e_learning.domain.Course;
+import com.example.e_learning.services.StorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class CourseMapper {
@@ -17,6 +17,7 @@ public class CourseMapper {
         responseDto.setCategory(course.getCategory());
         responseDto.setPublished(course.getPublished());
         responseDto.setLevel(course.getLevel());
+        responseDto.setSupport(course.getSupport());
         return responseDto;
 
 
@@ -30,6 +31,7 @@ public class CourseMapper {
         course.setDescription(courseDto.getDescription());
         course.setCategory(courseDto.getCategory());
         course.setLevel(courseDto.getLevel());
+        course.setSupport(courseDto.getSupport());
         return course;
     }
 

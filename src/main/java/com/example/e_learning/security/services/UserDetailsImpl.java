@@ -1,6 +1,6 @@
 package com.example.e_learning.security.services;
 
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.security.core.GrantedAuthority;

@@ -3,13 +3,11 @@ package com.example.e_learning.services.Imp;
 import com.example.e_learning.DTO.Request.RoleDto;
 import com.example.e_learning.DTO.Response.RoleResponseDto;
 import com.example.e_learning.Mapper.RoleMapper;
-import com.example.e_learning.models.Role;
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.Role;
 import com.example.e_learning.repositories.RoleRepo;
 import com.example.e_learning.repositories.UserRepo;
 import com.example.e_learning.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

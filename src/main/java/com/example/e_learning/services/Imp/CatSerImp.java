@@ -2,13 +2,9 @@ package com.example.e_learning.services.Imp;
 
 
 import com.example.e_learning.DTO.Request.CategorieDto;
-import com.example.e_learning.DTO.Request.RoleDto;
 import com.example.e_learning.DTO.Response.CategorieResponseDto;
-import com.example.e_learning.DTO.Response.RoleResponseDto;
 import com.example.e_learning.Mapper.CategorieMapper;
-import com.example.e_learning.Mapper.RoleMapper;
-import com.example.e_learning.models.Categorie;
-import com.example.e_learning.models.Role;
+import com.example.e_learning.domain.Categorie;
 import com.example.e_learning.repositories.CategorieRepo;
 import com.example.e_learning.services.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import java.util.stream.Collectors;
 
 import static com.example.e_learning.Mapper.CategorieMapper.ToDto;
 import static com.example.e_learning.Mapper.CategorieMapper.ToEntity;
-import static com.example.e_learning.Mapper.RoleMapper.ToDtoDisplay;
 
 
 @Service

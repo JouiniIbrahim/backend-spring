@@ -2,8 +2,8 @@ package com.example.e_learning.controllers;
 
 import com.example.e_learning.Payload.Request.LoginRequest;
 import com.example.e_learning.Payload.Response.JwtResponse;
-import com.example.e_learning.models.RefrechToken;
-import com.example.e_learning.models.User;
+import com.example.e_learning.domain.RefrechToken;
+import com.example.e_learning.domain.User;
 import com.example.e_learning.repositories.UserRepo;
 import com.example.e_learning.security.jwt.JwtUtils;
 import com.example.e_learning.security.services.RefreshTokenService;
@@ -21,9 +21,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
+
 
 @RestController
-@RequestMapping("/Auth")
+@RequestMapping("/authentification")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthentificationController {
     @Autowired
@@ -35,8 +37,8 @@ public class AuthentificationController {
     @Autowired
     AuthenticationManager  authenticationManager;
 
-    @PostMapping("/SignIn")
-    public ResponseEntity<?> authenticateUser(@Valid  LoginRequest loginRequest) {
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         System.out.println("step 1");
@@ -70,7 +72,7 @@ public class AuthentificationController {
 
         }
     }
-        @GetMapping ("/SignOut")
+        @GetMapping ("/signout")
                 public ResponseEntity<?> signout()
         {
             UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
@@ -79,7 +81,8 @@ public class AuthentificationController {
                     .getPrincipal();
             Long userId=userDetails.getId();
             refreshTokenService.deleteByUserId(userId);
-            return ResponseEntity.ok("user is out");
+
+             return ResponseEntity.ok().build();
         }
 
     }

@@ -1,7 +1,6 @@
 package com.example.e_learning.DTO.Response;
 
 
-import com.example.e_learning.models.Categorie;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +17,7 @@ public class ProduitResponseDto {
     private String description;
     private Long prix;
     private Long tva;
+    private Double prixTTC;
 //    private Long categorieId;
     private CategorieResponseDto categorie;
 }
