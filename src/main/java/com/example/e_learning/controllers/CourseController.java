@@ -31,20 +31,12 @@ public class CourseController {
     private StorageService storageService;
 
     @PostMapping("/save")
-    public CourseResponseDto AddCourseWithFile(@ModelAttribute CourseWithFileDto courseWithFileDto) {
-        String filename = storageService.store(courseWithFileDto.getSupport());
-        log.info("Filename is {}", filename);
+    public CourseResponseDto addCourse(@ModelAttribute CourseWithFileDto courseWithFileDto) {
 
-        if (courseWithFileDto.getCourseDto() != null) {
-            courseWithFileDto.getCourseDto().setSupport(filename);
-        }
-        return courseSerImp.AddCourse(courseWithFileDto.getCourseDto());
+        return courseSerImp.AddCourse(courseWithFileDto);
     }
 
-    @PostMapping("/AddCourse")
-    public CourseResponseDto AddCourse1(@Valid @RequestBody CourseDto courseDto) {
-        return courseSerImp.AddCourse(courseDto);
-    }
+
 
     @GetMapping("/AllCourses")
     public List<CourseResponseDto> getAllCourses() {
@@ -56,36 +48,55 @@ public class CourseController {
         return courseSerImp.GetCourseById(id);
     }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<byte[]> getFile(@PathVariable Long id) throws IOException {
-            Course fileEntity = courseSerImp.getFileCourseById(id);
-
-            if (fileEntity == null) {
-                return ResponseEntity.notFound().build();
-            }
-
-            String filename = fileEntity.getSupport();
-            Resource fileResource = storageService.loadFile(filename);
-
-            if (fileResource.exists() || fileResource.isReadable()) {
-                String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
-                MediaType mediaType = switch (fileExtension.toLowerCase()) {
-                    case "jpg", "jpeg" -> MediaType.IMAGE_JPEG;
-                    case "png" -> MediaType.IMAGE_PNG;
-                    case "gif" -> MediaType.IMAGE_GIF;
-                    case "pdf" -> MediaType.APPLICATION_PDF;
-                    default -> MediaType.APPLICATION_OCTET_STREAM;
-                };
-
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
-                        .contentType(mediaType)
-                        .body(Files.readAllBytes(fileResource.getFile().toPath()));
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+    // Serve the file for download
+    @GetMapping("/down/{courseId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long courseId) {
+        Course course = courseSerImp.getFileCourseById(courseId);
+        if (course == null || course.getFile() == null) {
+            return ResponseEntity.notFound().build();
         }
 
+        Resource file = storageService.getFileAsResource(course.getFile());
+        if (file != null) {
+            MediaType mediaType = switch (course.getFile().getExtension().toLowerCase()) {
+                case "jpg", "jpeg" -> MediaType.IMAGE_JPEG;
+                case "png" -> MediaType.IMAGE_PNG;
+                case "gif" -> MediaType.IMAGE_GIF;
+                case "pdf" -> MediaType.APPLICATION_PDF;
+                default -> MediaType.APPLICATION_OCTET_STREAM;
+            };
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + course.getFile().getName() + "\"")
+                    .contentType(mediaType)
+                    .body(file);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/view/{courseId}")
+    public ResponseEntity<Resource> viewFile(@PathVariable Long courseId) {
+        Course course = courseSerImp.getFileCourseById(courseId);
+        if (course == null || course.getFile() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Resource file = storageService.getFileAsResource(course.getFile());
+        if (file != null) {
+            MediaType mediaType = switch (course.getFile().getExtension().toLowerCase()) {
+                case "jpg", "jpeg" -> MediaType.IMAGE_JPEG;
+                case "png" -> MediaType.IMAGE_PNG;
+                case "gif" -> MediaType.IMAGE_GIF;
+                case "pdf" -> MediaType.APPLICATION_PDF;
+                default -> MediaType.APPLICATION_OCTET_STREAM;
+            };
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .body(file);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 
 
     @DeleteMapping("/DeleteCourse/{id}")
@@ -93,14 +104,8 @@ public class CourseController {
         courseSerImp.DeleteCourse(id);
     }
 
-    @PutMapping("/UpdateCourse")
-    public CourseResponseDto UpdateCourse(@ModelAttribute CourseWithFileDto courseWithFileDto) {
-        System.out.println("----------------------------");
-        String filename = storageService.store(courseWithFileDto.getSupport());
-        log.info("Filename is {}", filename);
-        if (courseWithFileDto.getCourseDto() != null) {
-            courseWithFileDto.getCourseDto().setSupport(filename);
-        }
-        return courseSerImp.UpdateCourse(courseWithFileDto.getCourseDto());
+    @PutMapping("/edit/{id}")
+    public CourseResponseDto updateCourse(@PathVariable("id") Long id, @ModelAttribute CourseWithFileDto courseWithFileDto) {
+        return courseSerImp.UpdateCourse(courseWithFileDto);
     }
 }

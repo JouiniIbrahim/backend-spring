@@ -2,6 +2,7 @@ package com.example.e_learning.DTO.Request;
 
 
 import com.example.e_learning.domain.Course;
+import com.example.e_learning.domain.FileAttachement;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -28,7 +29,9 @@ public class CourseDto {
     private Course.Courselevel level;
      private LocalDateTime published;
 
-    private String support;
+    private FileAttachement file;
+
+
 
 
 }

@@ -13,6 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class CourseWithFileDto {
     private CourseDto courseDto;
-    private MultipartFile support;
+    private MultipartFile file;
 
 }

@@ -17,7 +17,13 @@ public class CourseMapper {
         responseDto.setCategory(course.getCategory());
         responseDto.setPublished(course.getPublished());
         responseDto.setLevel(course.getLevel());
-        responseDto.setSupport(course.getSupport());
+
+        if (course.getFile() != null) {
+            responseDto.setFileName(course.getFile().getName());
+            responseDto.setFileExtension(course.getFile().getExtension());
+        }
+
+
         return responseDto;
 
 
@@ -31,7 +37,7 @@ public class CourseMapper {
         course.setDescription(courseDto.getDescription());
         course.setCategory(courseDto.getCategory());
         course.setLevel(courseDto.getLevel());
-        course.setSupport(courseDto.getSupport());
+
         return course;
     }
 

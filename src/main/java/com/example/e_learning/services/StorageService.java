@@ -1,5 +1,7 @@
 package com.example.e_learning.services;
 
+import com.example.e_learning.domain.FileAttachement;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Random;
@@ -32,6 +34,12 @@ public class StorageService {
         } catch (Exception e) {
             throw new RuntimeException("FAIL!");
         }
+    }
+    public Resource getFileAsResource(FileAttachement file) {
+        if (file != null) {
+            return new ByteArrayResource(file.getData());
+        }
+        return null;
     }
 
     public Resource loadFile(String filename) {
